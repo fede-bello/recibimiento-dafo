@@ -45,8 +45,8 @@ function playMuu(pitch = 1) {
 
   const g = ctx.createGain()
   g.gain.setValueAtTime(0.0001, t)
-  g.gain.exponentialRampToValueAtTime(0.28, t + 0.05)
-  g.gain.setValueAtTime(0.24, t + 0.5)
+  g.gain.exponentialRampToValueAtTime(0.09, t + 0.05)
+  g.gain.setValueAtTime(0.08, t + 0.5)
   g.gain.exponentialRampToValueAtTime(0.0001, t + 0.85)
 
   o1.connect(lp)
@@ -60,6 +60,22 @@ function playMuu(pitch = 1) {
   o1.stop(t + 0.9)
   o2.stop(t + 0.9)
   lfo.stop(t + 0.9)
+}
+
+/* ====== AUDIOS RANDOM (clic) ====== */
+const AUDIOS = [
+  '/audios/LFG_1.mp3',
+  '/audios/LFG_2.mp3',
+  '/audios/LFG_3.mp3',
+  '/audios/LFG_4.mp3',
+  '/audios/LFG_5.mp3',
+]
+
+function playRandomAudio() {
+  const src = AUDIOS[Math.floor(Math.random() * AUDIOS.length)]
+  const a = new Audio(src)
+  a.volume = 0.9
+  a.play().catch(() => {})
 }
 
 /* ====== datos del evento ====== */
@@ -373,6 +389,7 @@ export default function App() {
       explotar(e.clientX, e.clientY, esDafo ? 1.8 : 1)
       temblar()
       muu(esDafo ? 0.7 + Math.random() * 0.2 : 0.9 + Math.random() * 0.35)
+      if (!muteRef.current) playRandomAudio()
     }
 
     window.addEventListener('pointermove', onMove)
