@@ -1,0 +1,507 @@
+/* ===========================================================
+   RECIBIMIENTO DAFO — hojita de estilos hermosamente espantosa
+   Paleta robada de la invitación: verde oliva + rosa chicle + plata
+   =========================================================== */
+
+:root {
+  --oliva: #2b2c1a;
+  --oliva-claro: #3a3b22;
+  --rosa: #f4b9d0;
+  --rosa-fuerte: #f48fb8;
+  --plata: #d8d8e0;
+  --crema: #f7f3e8;
+  --leche: #fdfdf8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--oliva);
+  color: var(--crema);
+  font-family: 'Archivo Black', system-ui, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewport='0 0 40 40'%3E%3Ctext y='32' font-size='32'%3E%F0%9F%A5%9B%3C/text%3E%3C/svg%3E") 10 10, auto;
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* temblor de pantalla al clickear */
+#root.sacudida {
+  animation: sacudir 0.4s ease-in-out;
+}
+@keyframes sacudir {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  15% { transform: translate(-8px, 5px) rotate(-1deg); }
+  30% { transform: translate(7px, -4px) rotate(1deg); }
+  45% { transform: translate(-6px, -6px) rotate(-0.5deg); }
+  60% { transform: translate(6px, 4px) rotate(0.6deg); }
+  75% { transform: translate(-4px, 3px) rotate(-0.3deg); }
+}
+
+/* ---------- fondo: degradé que late + estrellas ---------- */
+.fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(244, 185, 208, 0.35), transparent 40%),
+    radial-gradient(circle at 15% 75%, rgba(244, 185, 208, 0.3), transparent 38%),
+    radial-gradient(circle at 50% 50%, var(--oliva-claro), var(--oliva));
+  animation: latido-fondo 8s ease-in-out infinite;
+}
+
+@keyframes latido-fondo {
+  0%, 100% { filter: hue-rotate(0deg) saturate(1); }
+  50% { filter: hue-rotate(25deg) saturate(1.4); }
+}
+
+/* ---------- capa de cosas flotando ---------- */
+.flotante {
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+.emoji-flotante {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes flotar {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-30px) rotate(8deg); }
+  50%  { transform: translateY(10px) rotate(-6deg); }
+  75%  { transform: translateY(-20px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes tiritar {
+  0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+  25% { transform: translate(2px, -2px) rotate(2deg); }
+  50% { transform: translate(-2px, 2px) rotate(-3deg); }
+  75% { transform: translate(2px, 2px) rotate(1deg); }
+}
+
+@keyframes parpadeo {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.15; }
+}
+
+/* ---------- vaca gigante que cruza la pantalla ---------- */
+.vaca-gigante {
+  position: fixed;
+  z-index: 6;
+  pointer-events: none;
+  user-select: none;
+  font-size: clamp(5rem, 18vw, 13rem);
+  line-height: 1;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.55));
+}
+.vaca-gigante.der {
+  transform: scaleX(-1);
+  animation: cruzar-der 7s linear forwards;
+}
+.vaca-gigante.izq {
+  animation: cruzar-izq 7s linear forwards;
+}
+.vaca-trote {
+  display: inline-block;
+  animation: trotar 0.45s ease-in-out infinite;
+}
+@keyframes cruzar-der {
+  from { left: -32vw; }
+  to   { left: 122vw; }
+}
+@keyframes cruzar-izq {
+  from { left: 122vw; }
+  to   { left: -32vw; }
+}
+@keyframes trotar {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-28px) rotate(3deg); }
+}
+
+/* ---------- botón de mute ---------- */
+.mute-btn {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9997;
+  font-size: 1.6rem;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid var(--plata);
+  background: var(--rosa);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s;
+  line-height: 1;
+}
+.mute-btn:hover { transform: scale(1.15) rotate(-8deg); }
+.mute-btn:active { transform: scale(0.95); }
+
+/* ---------- lluvia de leche ---------- */
+@keyframes caer {
+  0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ---------- cabezas de dafo flotando ---------- */
+.cabeza-dafo {
+  position: fixed;
+  z-index: 1;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--rosa-fuerte);
+  box-shadow: 0 0 0 3px var(--plata), 0 8px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  cursor: pointer;
+  animation: flotar 6s ease-in-out infinite, girar 12s linear infinite;
+  transition: transform 0.2s;
+}
+.cabeza-dafo:hover {
+  transform: scale(1.6) !important;
+  z-index: 50;
+}
+
+/* ===========================================================
+   CONTENIDO PRINCIPAL
+   =========================================================== */
+.contenido {
+  position: relative;
+  z-index: 10;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.2rem 6rem;
+  text-align: center;
+}
+
+/* marquesina superior */
+.marquesina {
+  position: relative;
+  z-index: 20;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--rosa);
+  color: var(--oliva);
+  border-top: 4px solid var(--plata);
+  border-bottom: 4px solid var(--plata);
+  font-family: 'Bungee', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.4rem 0;
+  text-transform: uppercase;
+}
+.marquesina span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: desfilar 18s linear infinite;
+}
+.marquesina.reversa span {
+  animation-direction: reverse;
+  animation-duration: 22s;
+}
+@keyframes desfilar {
+  to { transform: translateX(-100%); }
+}
+
+/* hero */
+.hero {
+  margin: 2.5rem 0 1rem;
+}
+.hero .fecha {
+  font-family: 'Space Mono', monospace;
+  color: var(--rosa);
+  font-size: clamp(1.4rem, 5vw, 2.4rem);
+  letter-spacing: 0.3em;
+  animation: parpadeo 4s infinite;
+}
+.hero .hora {
+  font-family: 'Space Mono', monospace;
+  color: var(--crema);
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  letter-spacing: 0.3em;
+  margin-bottom: 1rem;
+}
+
+.titulazo {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(2.6rem, 11vw, 6rem);
+  line-height: 0.92;
+  color: var(--leche);
+  text-transform: none;
+  text-shadow: 4px 4px 0 var(--rosa-fuerte), 8px 8px 0 rgba(0, 0, 0, 0.3);
+  margin: 0.4rem 0;
+}
+.titulazo .si-obvio {
+  display: inline-block;
+  color: var(--rosa);
+  animation: tiritar 0.4s infinite;
+  text-shadow: 4px 4px 0 var(--oliva);
+}
+
+.subtitulo-dafo {
+  font-family: 'Bungee Shade', sans-serif;
+  font-size: clamp(2.5rem, 14vw, 8rem);
+  background: linear-gradient(90deg, var(--rosa), var(--plata), var(--rosa-fuerte), var(--leche));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: arcoiris 4s linear infinite;
+  margin: 1rem 0;
+  letter-spacing: 0.05em;
+}
+@keyframes arcoiris {
+  to { background-position: 300% 0; }
+}
+
+/* tabla periódica DAFO */
+.periodica {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+.elemento {
+  width: 84px;
+  height: 96px;
+  background: var(--oliva-claro);
+  border: 3px solid var(--plata);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 0 var(--rosa-fuerte);
+  animation: flotar 5s ease-in-out infinite;
+  cursor: default;
+}
+.elemento:nth-child(2) { animation-delay: 0.3s; }
+.elemento:nth-child(3) { animation-delay: 0.6s; }
+.elemento:nth-child(4) { animation-delay: 0.9s; }
+.elemento .num { font-size: 0.7rem; color: var(--rosa); align-self: flex-start; margin-left: 8px; }
+.elemento .sim { font-size: 2.4rem; color: var(--leche); font-family: 'Archivo Black'; }
+.elemento .nom { font-size: 0.55rem; color: var(--plata); font-family: 'Comic Neue'; }
+
+/* contador */
+.contador {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+.contador .caja {
+  background: var(--rosa);
+  color: var(--oliva);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  min-width: 90px;
+  box-shadow: 6px 6px 0 var(--plata);
+  animation: flotar 4s ease-in-out infinite;
+}
+.contador .caja:nth-child(2) { animation-delay: 0.4s; }
+.contador .caja:nth-child(3) { animation-delay: 0.8s; }
+.contador .caja:nth-child(4) { animation-delay: 1.2s; }
+.contador .caja .n {
+  font-family: 'Bungee', sans-serif;
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  line-height: 1;
+}
+.contador .caja .l {
+  font-family: 'Comic Neue';
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* tarjeta de datos */
+.tarjeta {
+  background: rgba(0, 0, 0, 0.25);
+  border: 4px dashed var(--rosa);
+  border-radius: 24px;
+  padding: 1.8rem 1.4rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  backdrop-filter: blur(2px);
+}
+.tarjeta .donde-label {
+  font-family: 'Comic Neue';
+  color: var(--rosa);
+  font-size: 1rem;
+}
+.tarjeta .lugar {
+  font-family: 'Archivo Black';
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  color: var(--leche);
+  margin: 0.4rem 0 1rem;
+}
+.tarjeta .aclaracion {
+  font-family: 'Comic Neue';
+  font-weight: 700;
+  color: var(--rosa-fuerte);
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+/* botones */
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2.5rem 0;
+}
+.boton {
+  font-family: 'Bungee', sans-serif;
+  font-size: clamp(1rem, 3.5vw, 1.4rem);
+  text-decoration: none;
+  padding: 1.1rem 1.8rem;
+  border-radius: 50px;
+  border: 4px solid var(--plata);
+  color: var(--oliva);
+  background: var(--rosa);
+  box-shadow: 0 0 0 0 var(--rosa-fuerte);
+  transition: transform 0.15s, box-shadow 0.15s;
+  animation: latido-boton 1.4s ease-in-out infinite;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.boton.alt {
+  background: var(--oliva-claro);
+  color: var(--leche);
+}
+.boton:hover {
+  transform: scale(1.12) rotate(-2deg);
+  box-shadow: 0 0 30px 4px var(--rosa-fuerte);
+}
+@keyframes latido-boton {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* galeria de fotos cursed */
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem 0;
+}
+.galeria img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border: 5px solid var(--leche);
+  box-shadow: 6px 6px 0 var(--rosa-fuerte);
+  animation: bambolear 5s ease-in-out infinite;
+}
+.galeria img:nth-child(even) { animation-delay: 0.5s; border-color: var(--rosa); }
+.galeria img:nth-child(3n) { animation-delay: 1s; }
+@keyframes bambolear {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+/* seccion titulo generico */
+.seccion-titulo {
+  font-family: 'Bungee Shade', sans-serif;
+  font-size: clamp(1.6rem, 7vw, 3rem);
+  color: var(--rosa);
+  margin: 3rem 0 1rem;
+}
+
+/* leche-o-metro */
+.lechometro {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+.lechometro .barra {
+  height: 40px;
+  background: var(--oliva-claro);
+  border: 4px solid var(--plata);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.lechometro .relleno {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--leche), var(--rosa));
+  animation: llenar 3s ease-out forwards;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-family: 'Comic Neue';
+  font-weight: 700;
+  color: var(--oliva);
+  white-space: nowrap;
+}
+@keyframes llenar {
+  to { width: 99.9%; }
+}
+
+/* firma */
+.firma {
+  font-family: 'Comic Neue';
+  font-weight: 700;
+  font-size: clamp(1.1rem, 4vw, 1.8rem);
+  color: var(--crema);
+  margin: 3rem 0 1rem;
+}
+.firma .nombres {
+  color: var(--rosa);
+  font-family: 'Bungee', sans-serif;
+}
+
+.minitexto {
+  font-family: 'Comic Neue';
+  color: var(--plata);
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
+
+/* estrellitas de fondo del hero (las de la invi) */
+.estrella-deco {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(1px);
+  animation: flotar 7s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .cabeza-dafo { width: 60px; height: 60px; }
+  .elemento { width: 70px; height: 82px; }
+  .galeria img { width: 120px; height: 120px; }
+}
+
+/* respeta a quien no quiere mareos */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
